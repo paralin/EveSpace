@@ -8,6 +8,7 @@
     "underscore-string-latest": {},
     "moment": {},
     "font-awesome": {},
-    "Bootstrap-Validator": {}
+    "Bootstrap-Validator": {},
+    "bootboxjs": {}
   }
 }

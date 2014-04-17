@@ -1,46 +1,41 @@
 <template name="norg">
 <div class="row">
   <div class="col-lg-12">
-    {{#if checking}}
-    {{>checkingKey}}
-    {{else}}
-    {{>newKeyPanel}}
-    {{/if}}
-  </div>
-</div>
-</template>
-<template name="checkingKey">
-<div class="panel panel-warning center-block" style="width: 350px;margin-top:38px">
-  <div class="panel-heading">
-    Checking key...
-  </div>
-  <div class="panel-body">
-    <h5>Server is verifying your key with CCP...</h5>
-    <div class="progress progress-striped active">
-      <div class="progress-bar" role="progressbar" style="width: 100%">
+    <div class="panel panel-success center-block" style="width:485px">
+      <div class="panel-heading">
+        Create an Organization
+      </div>
+      <div class="panel-body">
+        <form role="form" id="keyPanel">
+          <div class="form-group">
+            <label>Organization Name</label>
+            <input type="text" class="form-control" name="orgname" />
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="usersviews"> Allow users to create views
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Access Groups</label>
+            <table class="table table-striped table-hover">
+              <tbody>
+              {{#each agroups}}
+              <tr>
+                <td><i class="fa fa-ban"></i> {{name}}</td>
+              </tr>
+              {{/each}}
+              </tbody>
+            </table>
+            <a class="btn btn-default addUser">Add User</a>
+            <a class="btn btn-default addChar">Add Character</a>
+            <a class="btn btn-default addCorp">Add Corporation</a>
+            <a class="btn btn-default addAlliance">Add Alliance</a>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
       </div>
     </div>
-  </div>
-</div>
-</template>
-<template name="newKeyPanel">
-<a class="btn btn-info center-block" target="_blank" style="width:350px" href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=8388608">Create Key</a>
-<div class="panel panel-success center-block" style="width:350px">
-  <div class="panel-heading">
-    Add an API Key
-  </div>
-  <div class="panel-body">
-    <form role="form" id="keyPanel">
-      <div class="form-group">
-        <label>Key ID</label>
-        <input type="text" class="form-control" name="keyid" />
-      </div>
-      <div class="form-group">
-        <label>Verification Code</label>
-        <input type="text" class="form-control" name="vcode" />
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
   </div>
 </div>
 </template>

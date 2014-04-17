@@ -10,7 +10,8 @@
       "underscore-string-latest": {},
       "moment": {},
       "font-awesome": {},
-      "Bootstrap-Validator": {}
+      "Bootstrap-Validator": {},
+      "bootboxjs": {}
     },
     "packages": {
       "iron-router": {
@@ -57,6 +58,11 @@
         "git": "https://github.com/aashuagg/Bootstrap-Validator.git",
         "tag": "v0.0.1",
         "commit": "3e4f9808d86e55315afee4b16080eac991bf8fa4"
+      },
+      "bootboxjs": {
+        "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
+        "tag": "v4.2.0",
+        "commit": "2b7d18ad028d9e7b37238ecf2a8a7970735cebd1"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

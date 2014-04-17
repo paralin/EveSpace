@@ -20,3 +20,7 @@ Router.map ->
     controller: AuthRequired
     path: '/org/new'
     template: 'norg'
+    waitOn:->
+      Meteor.subscribe "authKeys"
+    onStart: ->
+      Session.set "tAccessGroups", []

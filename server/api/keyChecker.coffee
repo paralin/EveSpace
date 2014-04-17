@@ -1,4 +1,4 @@
-neow = Meteor.require "neow"
+@neow = Meteor.require "neow"
 
 #Automatically check everything every hour
 checkPeriod = 60000*60
