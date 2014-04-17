@@ -1,12 +1,50 @@
 @neow = Meteor.require "neow"
+idCache = {}
 
 #Automatically check everything every hour
 checkPeriod = 60000*60
+
+anonClient = ->
+  new neow.EveClient
 
 apiClient = (id, vcode)->
   client = new neow.EveClient
     keyID: id
     vCode: vcode
+
+@charInfoForName = (name)->
+  console.log "looking up "+name
+  id = idCache[name.toLowerCase()]
+  if !id?
+    result = Async.runSync (done)->
+      anonClient().fetch('eve:CharacterID', names: name)
+        .then((result)->
+          id = Object.keys(result.characters)[0]
+          name = result.characters[id].name
+          done(null, [id, name])
+        ).catch((err)->
+          console.log "error looking up CharacterID"
+          console.log err
+          done(err, null)
+        ).done()
+    if result.error?
+      throw new Meteor.Error 500, "EVE API is having trouble completing this request."
+    [id, name] = result.result
+  console.log "id: "+id
+  console.log "name: "+name
+  return if id is '0'
+  idCache[name.toLowerCase()] = id
+  res = Async.runSync (doned)->
+    anonClient().fetch('eve:CharacterInfo', characterID: id)
+      .then((result)->
+        doned(null, result)
+      ).catch((err)->
+        console.log "error checking character info "+JSON.stringify err
+        doned(err, null)
+      ).done()
+  if res.error?
+    throw new Meteor.Error 500, "EVE API is having trouble completing this request."
+  res.result
 
 @generateAuthRecords = (uid, charList, kid, vcode)->
   #Get all character records

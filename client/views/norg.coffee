@@ -64,3 +64,60 @@ Template.norg.events
               return
           groups.push {type: "corp", name: "Corporation: "+res.name, id: res._id}
           Session.set("tAccessGroups", groups)
+  "click .addAlliance": ->
+    bootbox.prompt "What is the alliance's name?", (result)->
+      return if !result?
+      noti = $.pnotify
+        title: "Finding Alliance"
+        text: "Adding alliance "+result+"..."
+        type: "info"
+        hide: false
+      Meteor.call "agAllianceID", result, (err, res)->
+        noti.remove()
+        if err?
+          $.pnotify
+            title: "Couldn't Find Alliance"
+            text: err.reason
+            type: "error"
+        else if res?
+          checkIfNull()
+          groups = Session.get("tAccessGroups")
+          for group in groups
+            if group.id is res._id
+              $.pnotify
+                title: "Duplicate"
+                type: "error"
+                text: "You've already added "+res.name+"."
+              return
+          groups.push {type: "alliance", name: "Alliance: "+res.name, id: res._id}
+          Session.set("tAccessGroups", groups)
+  "click .addChar": ->
+    bootbox.prompt "What is the character's name?", (result)->
+      return if !result?
+      noti = $.pnotify
+        title: "Finding Character"
+        text: "Adding character "+result+"..."
+        type: "info"
+        hide: false
+      Meteor.call "agCharacterID", result, (err, res)->
+        noti.remove()
+        if err?
+          $.pnotify
+            title: "Couldn't Find Character"
+            text: err.reason
+            type: "error"
+        else if res?
+          checkIfNull()
+          groups = Session.get("tAccessGroups")
+          res =
+            _id: res.characterID.content
+            name: res.characterName.content
+          for group in groups
+            if group.id is res._id
+              $.pnotify
+                title: "Duplicate"
+                type: "error"
+                text: "You've already added "+res.name+"."
+              return
+          groups.push {type: "character", name: "Character: "+res.name, id: res._id}
+          Session.set("tAccessGroups", groups)
