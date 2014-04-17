@@ -1,0 +1,68 @@
+{
+  "dependencies": {
+    "eve-route": {
+      "version": "0.3.1"
+    },
+    "neow": {
+      "version": "0.1.1",
+      "dependencies": {
+        "q": {
+          "version": "1.0.1"
+        },
+        "q-io": {
+          "version": "1.11.0",
+          "dependencies": {
+            "q": {
+              "version": "0.9.7"
+            },
+            "qs": {
+              "version": "0.1.0"
+            },
+            "url2": {
+              "version": "0.0.0"
+            },
+            "mime": {
+              "version": "1.2.11"
+            },
+            "mimeparse": {
+              "version": "0.1.4"
+            },
+            "collections": {
+              "version": "0.2.2",
+              "dependencies": {
+                "weak-map": {
+                  "version": "1.0.0"
+                }
+              }
+            }
+          }
+        },
+        "lodash": {
+          "version": "2.4.1"
+        },
+        "sax": {
+          "version": "0.6.0"
+        },
+        "numeral": {
+          "version": "1.5.3"
+        },
+        "xml2js": {
+          "version": "0.4.2",
+          "dependencies": {
+            "sax": {
+              "version": "0.5.8"
+            },
+            "xmlbuilder": {
+              "version": "2.2.1",
+              "dependencies": {
+                "lodash-node": {
+                  "version": "2.4.1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

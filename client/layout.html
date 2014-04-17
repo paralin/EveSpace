@@ -1,0 +1,29 @@
+<head>
+<title>EVE Space Tracker</title>
+</head>
+
+<template name="layout">
+{{>navbar}}
+<div class="container">
+{{> yield}}
+</div>
+</template>
+
+<template name="notFound">
+{{>pageBack "/images/notfound.png"}}
+
+<div class="row-fluid" style="margin-top:5%">
+  <div class="span12">
+    <div class="description-texts">
+      <h1 class="site-slogan">
+        <span>PAGE NOT FOUND</span>
+      </h1>
+      <a class="btn btn-success" href="/">Go Home</a>
+    </div>
+  </div>
+</div>
+</template>
+
+<template name="pageBack">
+<div class="pageBack" style="background: url('{{this}}') no-repeat"></div>
+</template>

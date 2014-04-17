@@ -1,0 +1,13 @@
+{
+  "packages": {
+    "iron-router": {},
+    "bootstrap-3": {},
+    "iron-router-progress": {},
+    "accounts-ui-bootstrap-3": {},
+    "pnotify": {},
+    "underscore-string-latest": {},
+    "moment": {},
+    "font-awesome": {},
+    "Bootstrap-Validator": {}
+  }
+}

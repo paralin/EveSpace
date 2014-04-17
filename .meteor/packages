@@ -1,0 +1,21 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+coffeescript
+accounts-password
+iron-router
+bootstrap-3
+stylus
+iron-router-progress
+accounts-ui-bootstrap-3
+pnotify
+underscore
+underscore-string-latest
+moment
+font-awesome
+Bootstrap-Validator
+npm
+http

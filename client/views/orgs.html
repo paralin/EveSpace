@@ -1,0 +1,26 @@
+<template name="orgs">
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1 id="type"><a href={{pathFor 'norg'}} class="btn btn-success">New Organization</a></h1>
+    </div>
+  </div> 
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    {{#each organizations}}
+    <div class="panel panel-info organization">
+      <div class="panel-heading">
+        {{name}}
+      </div>
+      <div class="panel-body">
+        {{#each members}}
+        {{name}}<br>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+</template>
+
