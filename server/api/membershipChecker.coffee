@@ -37,13 +37,13 @@
 Meteor.startup ->
   APIAuths.find({valid: true}).observe
     added: (fields)->
-      console.log "API key added "+fields.keyid+", updating orgs"
+      #console.log "API key added "+fields.keyid+", updating orgs"
       updateAll findOrgsForAPI fields
     updated: (fields)->
-      console.log "API key updated "+fields.keyid+", updating orgs"
+      #console.log "API key updated "+fields.keyid+", updating orgs"
       updateAll findOrgsForAPI fields
     removed: (fields)->
-      console.log "API key removed/invalid "+fields.keyid+", updating orgs"
+      #console.log "API key removed/invalid "+fields.keyid+", updating orgs"
       updateAll findOrgsForAPI fields
   Orgs.find({}, {fields: {memberReqs: 1, owners: 1}}).observe
     added: updateMemberships
