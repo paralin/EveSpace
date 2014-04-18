@@ -10,6 +10,7 @@ Router.map ->
     waitOn:->
       Meteor.subscribe "orgDetail", @params.id
     action:->
+      @render 'orgdetail'
       org = Orgs.findOne
         _id: @params.id
       if !org?

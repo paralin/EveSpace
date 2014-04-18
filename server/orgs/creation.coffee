@@ -1,4 +1,42 @@
 Meteor.methods
+  "orgRemReq": (orgid, reqid)->
+    if !@userId?
+      throw new Meteor.Error 403, "You are not logged in."
+    org = Orgs.findOne(_id: orgid)
+    if !org?
+      throw new Meteor.Error 404, "Can't find that org."
+    if !_.contains org.owners, @userId
+      throw new Meteor.Error 403, "You are not an owner of this org."
+    console.log "remove requirement "+reqid
+    org.memberReqs = _.without org.memberReqs, _.findWhere org.memberReqs, {id: reqid}
+    Orgs.update {_id: orgid}, {$set: {memberReqs: org.memberReqs}}
+  "orgAddReq": (orgid, req)->
+    if !@userId?
+      throw new Meteor.Error 403, "You are not logged in."
+    org = Orgs.findOne(_id: orgid)
+    if !org?
+      throw new Meteor.Error 404, "Can't find that org."
+    if !_.contains org.owners, @userId
+      throw new Meteor.Error 403, "You are not an owner of this org."
+    console.log "add requirement "+JSON.stringify req
+    [newReq] = validateGroups [req]
+    org.memberReqs.push newReq
+    Orgs.update {_id: orgid}, {$set: {memberReqs: org.memberReqs}}
+  "changeOrgName": (id, name)->
+    #check id, String
+    #check name, String
+    console.log id
+    console.log name
+    if !@userId?
+      throw new Meteor.Error 403, "You are not logged in."
+    org = Orgs.findOne(_id: id)
+    if !org?
+      throw new Meteor.Error 404, "Org "+id+" not found."
+    if name.length > 30 || name.length < 4
+      throw new Meteor.Error 403, "Org name must be within 4 and 30 characters."
+    if !_.contains org.owners, @userId
+      throw new Meteor.Error 403, "You are not an owner of this org."
+    Orgs.update {_id: org._id}, {$set: {name: name}}
   "createOrg": (name, groups)->
     check name, String
     check groups, Array
@@ -59,7 +97,7 @@ Meteor.methods
       members.push
         type: "user"
         id: group.id
-        description: group.name
+        description: group.description
     else if group.type is "character"
       info = charInfoForID(group.id)
       if !info?
@@ -67,7 +105,7 @@ Meteor.methods
       members.push
         type: "character"
         id: group.id
-        description: group.name
+        description: group.description
     else if group.type is "corp"
       corp = CorpDB.findOne
         _id: group.id

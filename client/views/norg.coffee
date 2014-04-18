@@ -1,7 +1,14 @@
+updateOrg = false
 checkIfNull = ->
   group = Session.get("tAccessGroups")
   if !group?
     Session.set "tAccessGroups", []
+
+Meteor.startup ->
+  Meteor.autorun ->
+    route = Router.current()
+    return if !route?
+    updateOrg = route.route.name is "orgdetail"
 
 executeCreate = ->
   name = $("input[name='orgname']").val()
@@ -39,13 +46,20 @@ Template.norg.rendered = ->
             regexp: /^[\w\-\s]+$/
             message: "Please use alphanumeric characters only."
 
-Template.norg.agroups = ->
+Template.norg.groups = ->
   Session.get "tAccessGroups"
 
-Template.norg.events
+Template.agSelector.showSubmit = ->
+  route = Router.current()
+  return if !route?
+  route.route.name isnt "orgdetail"
+Template.agSelector.events
   "click td .fa-ban": ->
-    arr = Session.get "tAccessGroups"
-    Session.set "tAccessGroups", _.without(arr, _.findWhere(arr, {id: @id}))
+    if updateOrg && confirmf "Are you sure you want to remove this member?"
+      Meteor.call "orgRemReq", Orgs.findOne()._id, @id
+    else
+      arr = Session.get "tAccessGroups"
+      Session.set "tAccessGroups", _.without(arr, _.findWhere(arr, {id: @id}))
   "click .addUser": ->
     bootbox.prompt "What is the user's name?", (result)->
       return if !result?
@@ -71,8 +85,12 @@ Template.norg.events
                 type: "error"
                 text: "You've already added "+result+"."
               return
-          groups.push {type: "user", name: "User: "+result, id: res}
-          Session.set("tAccessGroups", groups)
+          req = {type: "user", description: "User: "+result, id: res}
+          if updateOrg
+            Meteor.call "orgAddReq", Orgs.findOne()._id, req
+          else
+            groups.push req
+            Session.set("tAccessGroups", groups)
   "click .addCorp": ->
     bootbox.prompt "What is the corporation's name?", (result)->
       return if !result?
@@ -98,8 +116,12 @@ Template.norg.events
                 type: "error"
                 text: "You've already added "+res.name+"."
               return
-          groups.push {type: "corp", name: "Corporation: "+res.name, id: res._id}
-          Session.set("tAccessGroups", groups)
+          req = {type: "corp", description: "Corporation: "+res.name, id: res._id}
+          if updateOrg
+            Meteor.call "orgAddReq", Orgs.findOne()._id, req
+          else
+            groups.push req
+            Session.set("tAccessGroups", groups)
   "click .addAlliance": ->
     bootbox.prompt "What is the alliance's name?", (result)->
       return if !result?
@@ -125,8 +147,12 @@ Template.norg.events
                 type: "error"
                 text: "You've already added "+res.name+"."
               return
-          groups.push {type: "alliance", name: "Alliance: "+res.name, id: res._id}
-          Session.set("tAccessGroups", groups)
+          req = {type: "alliance", description: "Alliance: "+res.name, id: res._id}
+          if updateOrg
+            Meteor.call "orgAddReq", Orgs.findOne()._id, req
+          else
+            groups.push req
+            Session.set("tAccessGroups", groups)
   "click .addChar": ->
     bootbox.prompt "What is the character's name?", (result)->
       return if !result?
@@ -155,5 +181,9 @@ Template.norg.events
                 type: "error"
                 text: "You've already added "+res.name+"."
               return
-          groups.push {type: "character", name: "Character: "+res.name, id: res._id}
-          Session.set("tAccessGroups", groups)
+          req = {type: "character", description: "Character: "+res.name, id: res._id}
+          if updateOrg
+            Meteor.call "orgAddReq", Orgs.findOne()._id, req
+          else
+            groups.push req
+            Session.set("tAccessGroups", groups)

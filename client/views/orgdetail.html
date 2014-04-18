@@ -1,0 +1,50 @@
+<template name="orgdetail">
+{{#with org}}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1 id="type">{{name}}
+        {{#if isOwner}}
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Admin
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="changeName">Change Name</a></li>
+            <li><a href="#" class="editMembers">Edit Members</a></li>
+          </ul>
+        </div>
+        {{/if}}
+      </h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-3">
+    <h4>Views (maps)</h4>
+    <hr style="margin:0"/>
+  </div>
+  <div class="col-lg-4">
+  </div>
+  <div class="col-lg-5">
+    {{#if isOwner}}
+    {{>agSelector memberReqs}}
+    {{else}}
+    <h4>Organization Members</h4>
+    <table class="table table-striped">
+      <tbody>
+      {{#each memberReqs}}
+      <tr>
+        <td>
+          {{description}}
+        </td>
+      </tr>
+      {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+  </div>
+</div>
+{{/with}}
+</template>
