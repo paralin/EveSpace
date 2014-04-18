@@ -1,6 +1,10 @@
 {
   "packages": {
-    "iron-router": {},
+    "iron-router": 
+    {
+      "git": "https://github.com/kidovate/iron-router.git",
+      "branch": "master"
+    },
     "bootstrap-3": {},
     "iron-router-progress": {},
     "accounts-ui-bootstrap-3": {},
