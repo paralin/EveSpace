@@ -3,6 +3,42 @@ checkIfNull = ->
   if !group?
     Session.set "tAccessGroups", []
 
+executeCreate = ->
+  name = $("input[name='orgname']").val()
+  groups = Session.get("tAccessGroups")
+  Meteor.call "createOrg", name, groups, (err, res)->
+    if err?
+      $.pnotify
+        title: "Can't Create Org"
+        text: err.reason
+        type: "error"
+    else
+      Router.go Router.routes["orgdetail"].path(id: res)
+
+Template.norg.rendered = ->
+  $("#keyPanel").bootstrapValidator
+    message: "Invalid input."
+    feedbackIcons:
+      valid: "glyphicon glyphicon-ok"
+      invalid: "glyphicon glyphicon-remove"
+      validating: "glyphicon glyphiocn-refresh"
+    submitButtons: 'button[type="submit"]'
+    submitHandler: (validator, form, submitButton)->
+      executeCreate()
+    fields:
+      orgname:
+        message: "Invalid organization name."
+        validators:
+          notEmpty:
+            message: "Please name your organization."
+          stringLength:
+            min: 4
+            max: 30
+            message: "Please keep the name within 4-30 characters."
+          regexp:
+            regexp: /^[\w\-\s]+$/
+            message: "Please use alphanumeric characters only."
+
 Template.norg.agroups = ->
   Session.get "tAccessGroups"
 

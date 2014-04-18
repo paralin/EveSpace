@@ -12,6 +12,19 @@ apiClient = (id, vcode)->
     keyID: id
     vCode: vcode
 
+@charInfoForID = (id)->
+  res = Async.runSync (doned)->
+    anonClient().fetch('eve:CharacterInfo', characterID: id)
+      .then((result)->
+        doned(null, result)
+      ).catch((err)->
+        console.log "error checking character info "+JSON.stringify err
+        doned(err, null)
+      ).done()
+  if res.error?
+    throw new Meteor.Error 500, "EVE API is having trouble completing this request."
+  res.result
+
 @charInfoForName = (name)->
   console.log "looking up "+name
   id = idCache[name.toLowerCase()]
@@ -34,17 +47,7 @@ apiClient = (id, vcode)->
   console.log "name: "+name
   return if id is '0'
   idCache[name.toLowerCase()] = id
-  res = Async.runSync (doned)->
-    anonClient().fetch('eve:CharacterInfo', characterID: id)
-      .then((result)->
-        doned(null, result)
-      ).catch((err)->
-        console.log "error checking character info "+JSON.stringify err
-        doned(err, null)
-      ).done()
-  if res.error?
-    throw new Meteor.Error 500, "EVE API is having trouble completing this request."
-  res.result
+  charInfoForID id
 
 @generateAuthRecords = (uid, charList, kid, vcode)->
   #Get all character records

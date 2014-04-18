@@ -2,15 +2,17 @@ Router.map ->
   @route 'orgs',
     controller: AuthRequired
     path: '/orgs'
+    waitOn: ->
+      Meteor.subscribe "orgList"
   @route 'orgdetail',
     controller: AuthRequired
     path: '/orgs/:id'
     waitOn:->
       Meteor.subscribe "orgDetail", @params.id
     action:->
-      orgs = Orgs.findOne
+      org = Orgs.findOne
         _id: @params.id
-      if !args?
+      if !org?
         @redirect Router.routes['orgs'].path()
         return
     data:->
