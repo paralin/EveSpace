@@ -22,6 +22,18 @@ executeCreate = ->
     else
       Router.go Router.routes["orgdetail"].path(id: res)
 
+niceResult = (err, res)->
+  if err?
+    $.pnotify
+      title: "Error"
+      text: err.reason
+      type: "error"
+#  else
+#    $.pnotify
+#      title: "Success"
+#      text: "Operation completed successfully."
+#      type: "success"
+
 Template.norg.rendered = ->
   $("#keyPanel").bootstrapValidator
     message: "Invalid input."
@@ -87,7 +99,7 @@ Template.agSelector.events
               return
           req = {type: "user", description: "User: "+result, id: res}
           if updateOrg
-            Meteor.call "orgAddReq", Orgs.findOne()._id, req
+            Meteor.call "orgAddReq", Orgs.findOne()._id, req, niceResult
           else
             groups.push req
             Session.set("tAccessGroups", groups)
@@ -118,7 +130,7 @@ Template.agSelector.events
               return
           req = {type: "corp", description: "Corporation: "+res.name, id: res._id}
           if updateOrg
-            Meteor.call "orgAddReq", Orgs.findOne()._id, req
+            Meteor.call "orgAddReq", Orgs.findOne()._id, req, niceResult
           else
             groups.push req
             Session.set("tAccessGroups", groups)
@@ -149,7 +161,7 @@ Template.agSelector.events
               return
           req = {type: "alliance", description: "Alliance: "+res.name, id: res._id}
           if updateOrg
-            Meteor.call "orgAddReq", Orgs.findOne()._id, req
+            Meteor.call "orgAddReq", Orgs.findOne()._id, req, niceResult
           else
             groups.push req
             Session.set("tAccessGroups", groups)
@@ -183,7 +195,7 @@ Template.agSelector.events
               return
           req = {type: "character", description: "Character: "+res.name, id: res._id}
           if updateOrg
-            Meteor.call "orgAddReq", Orgs.findOne()._id, req
+            Meteor.call "orgAddReq", Orgs.findOne()._id, req, niceResult
           else
             groups.push req
             Session.set("tAccessGroups", groups)

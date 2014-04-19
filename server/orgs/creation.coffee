@@ -55,7 +55,7 @@ Meteor.methods
     org = Orgs.findOne(_id: orgid)
     if !org?
       throw new Meteor.Error 404, "Can't find that org."
-    if !isOrgOwner org, @userId
+    if !isOrgOwner @userId, org
       throw new Meteor.Error 403, "You are not an owner of this org."
     console.log "add requirement "+JSON.stringify req
     [newReq] = validateGroups [req]
