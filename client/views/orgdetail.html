@@ -13,6 +13,8 @@
           <ul class="dropdown-menu">
             <li><a href="#" class="changeName">Change Name</a></li>
             <li><a href="#" class="editMembers">Edit Members</a></li>
+            <li><a href="#" class="resignAdmin">Resign as Admin</a></li>
+            <li><a href="#" class="delOrg">Delete Organization</a></li>
           </ul>
         </div>
         {{/if}}
@@ -26,7 +28,7 @@
     <hr style="margin:0"/>
   </div>
   <div class="col-lg-4">
-    <h4>Admins</h4>
+    <h4>Admins {{#if isOwner}}<a class="btn btn-success pull-right addAdmin" style="height:29px;line-height:0"><i class="fa fa-plus"></i></a>{{/if}}</h4>
     <table class="table table-striped">
       {{#each owners}}
       <tr><td>{{name}}</td></tr>

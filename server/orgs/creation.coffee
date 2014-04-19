@@ -1,4 +1,43 @@
 Meteor.methods
+  "delOrg": (orgid)->
+    if !@userId?
+      throw new Meteor.Error 403, "You are not logged in."
+    org = Orgs.findOne(_id: orgid)
+    if !org?
+      throw new Meteor.Error 404, "Can't find that org."
+    if !isOrgOwner @userId, org
+      throw new Meteor.Error 403, "You are not an owner of this org."
+    Orgs.remove {_id: orgid}
+  "resignAsAdmin": (orgid, name)->
+    if !@userId?
+      throw new Meteor.Error 403, "You are not logged in."
+    org = Orgs.findOne(_id: orgid)
+    if !org?
+      throw new Meteor.Error 404, "Can't find that org."
+    if !isOrgOwner @userId, org
+      throw new Meteor.Error 403, "You are not an owner of this org."
+    if org.owners.length is 1
+      throw new Meteor.Error 403, "You're the last admin, you can't resign."
+    org.owners = _.without org.owners, _.findWhere org.owners, {id: @userId}
+    Orgs.update {_id: orgid}, {$set: {owners: org.owners}}
+  "addOrgAdmin": (orgid, name)->
+    if !@userId?
+      throw new Meteor.Error 403, "You are not logged in."
+    org = Orgs.findOne(_id: orgid)
+    if !org?
+      throw new Meteor.Error 404, "Can't find that org."
+    if !isOrgOwner @userId, org
+      throw new Meteor.Error 403, "You are not an owner of this org."
+    usera = Meteor.users.findOne
+      username: name
+    if !usera?
+      throw new Meteor.Error 404, "Couldn't find "+name+", it's case sensitive."
+    if isOrgOwner usera._id, org
+      throw new Meteor.Error 403, "That user already is an admin of this group."
+    org.owners.push
+      id: usera._id
+      name: usera.username
+    Orgs.update {_id: orgid}, {$set: {owners: org.owners}}
   "orgRemReq": (orgid, reqid)->
     if !@userId?
       throw new Meteor.Error 403, "You are not logged in."
