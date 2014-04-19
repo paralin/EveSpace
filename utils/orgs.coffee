@@ -1,3 +1,6 @@
+@isOrgOwner = (userId, org)->
+  _.findWhere(org.owners, {id: userId})?
+
 @getValidAuth = (userId, type, id)->
   APIAuths.findOne({userid: userId, valid: true, type: type, id: id})
 
@@ -25,4 +28,4 @@
     _id: orgId
   return false if !user? or !org?
   #Check if their API auths fit the requirements
-  _.contains(org.owners, userId) || userCanBeInGroup(userId, org.members)
+  isOrgOwner(userId, org) || userCanBeInGroup(userId, org.members)

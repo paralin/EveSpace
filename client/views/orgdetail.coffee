@@ -3,7 +3,7 @@ Template.orgdetail.org = ->
 Template.orgdetail.isOwner = ->
   org = Orgs.findOne()
   return false if !org?
-  _.contains org.owners, Meteor.userId()
+  isOrgOwner Meteor.userId(), org
 Template.orgdetail.events
   "click .changeName":->
     org = Orgs.findOne()

@@ -6,7 +6,9 @@
   org = Orgs.findOne({_id: org._id})
   if org.lastChecked > (new Date().getTime())-10000
     return
-  members = org.owners
+  members = []
+  for owner in org.owners
+    members.push owner.id
   delReqs = []
   for req in org.memberReqs
     if req.type is "user"

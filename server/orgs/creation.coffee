@@ -5,7 +5,7 @@ Meteor.methods
     org = Orgs.findOne(_id: orgid)
     if !org?
       throw new Meteor.Error 404, "Can't find that org."
-    if !_.contains org.owners, @userId
+    if !isOrgOwner @userId, org
       throw new Meteor.Error 403, "You are not an owner of this org."
     console.log "remove requirement "+reqid
     org.memberReqs = _.without org.memberReqs, _.findWhere org.memberReqs, {id: reqid}
@@ -16,7 +16,7 @@ Meteor.methods
     org = Orgs.findOne(_id: orgid)
     if !org?
       throw new Meteor.Error 404, "Can't find that org."
-    if !_.contains org.owners, @userId
+    if !isOrgOwner org, @userId
       throw new Meteor.Error 403, "You are not an owner of this org."
     console.log "add requirement "+JSON.stringify req
     [newReq] = validateGroups [req]
@@ -34,7 +34,7 @@ Meteor.methods
       throw new Meteor.Error 404, "Org "+id+" not found."
     if name.length > 30 || name.length < 4
       throw new Meteor.Error 403, "Org name must be within 4 and 30 characters."
-    if !_.contains org.owners, @userId
+    if !isOrgOwner @userId, org
       throw new Meteor.Error 403, "You are not an owner of this org."
     Orgs.update {_id: org._id}, {$set: {name: name}}
   "createOrg": (name, groups)->
@@ -46,9 +46,10 @@ Meteor.methods
     members = validateGroups groups
     console.log "added new org "+name
     console.log JSON.stringify members
+    user = Meteor.users.findOne({_id: @userId})
     org =
       name: name
-      owners: [@userId]
+      owners: [{id: @userId, name: user.username}]
       lastChecked: 0
       members: []
       memberReqs: members

@@ -26,6 +26,12 @@
     <hr style="margin:0"/>
   </div>
   <div class="col-lg-4">
+    <h4>Admins</h4>
+    <table class="table table-striped">
+      {{#each owners}}
+      <tr><td>{{name}}</td></tr>
+      {{/each}}
+    </table>
   </div>
   <div class="col-lg-5">
     {{#if isOwner}}
