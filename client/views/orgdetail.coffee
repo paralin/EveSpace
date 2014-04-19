@@ -1,10 +1,33 @@
 Template.orgdetail.org = ->
   Orgs.findOne()
+Template.orgdetail.orgViews = ->
+  org = Orgs.findOne()
+  return if !org?
+  Views.find
+    org: org._id
 Template.orgdetail.isOwner = ->
   org = Orgs.findOne()
   return false if !org?
   isOrgOwner Meteor.userId(), org
 Template.orgdetail.events
+  "click .oView": ->
+    Router.go Router.routes['view'].path({id: @_id})
+  "click .addView": ->
+    org = Orgs.findOne()
+    return if !org?
+    bootbox.prompt "What would you like to name the new view?", (result)->
+      return if !result?
+      Meteor.call "createView", result, org._id, (err, res)->
+        if err?
+          $.pnotify
+            title: "Can't Resign"
+            text: err.reason
+            type: "error"
+        else
+          $.pnotify
+            title: "View Created"
+            text: "New view ID: "+res._id+"."
+            type: "success"
   "click .delOrg":->
     org = Orgs.findOne()
     return if !org?

@@ -24,8 +24,12 @@
 </div>
 <div class="row">
   <div class="col-lg-3">
-    <h4>Views (maps)</h4>
-    <hr style="margin:0"/>
+    <h4>Views (maps) <a class="btn btn-success pull-right addView" style="height:29px;line-height:0"><i class="fa fa-plus"></i></a></h4>
+    <table class="table table-striped table-hover">
+      {{#each orgViews}}
+      <tr><td class="oView">{{name}}</td></tr>
+      {{/each}}
+    </table>
   </div>
   <div class="col-lg-4">
     <h4>Admins {{#if isOwner}}<a class="btn btn-success pull-right addAdmin" style="height:29px;line-height:0"><i class="fa fa-plus"></i></a>{{/if}}</h4>

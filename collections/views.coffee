@@ -7,7 +7,7 @@
 #
 # _id: id of the view
 # name: name of the map
-# owner: organization owning it
+# org: organization owning it
 # objects:
 #   [
 #     {
