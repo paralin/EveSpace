@@ -1,7 +1,6 @@
 {
   "packages": {
-    "iron-router": 
-    {
+    "iron-router": {
       "git": "https://github.com/kidovate/iron-router.git",
       "branch": "master"
     },
@@ -13,6 +12,7 @@
     "moment": {},
     "font-awesome": {},
     "Bootstrap-Validator": {},
-    "bootboxjs": {}
+    "bootboxjs": {},
+    "dagre-d3": {}
   }
 }

@@ -20,3 +20,5 @@ Bootstrap-Validator
 npm
 http
 bootboxjs
+d3
+dagre-d3

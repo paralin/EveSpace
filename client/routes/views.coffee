@@ -3,7 +3,6 @@ Router.map ->
     controller: AuthRequired
     path: '/view/:id'
     action: ->
-      #@render 'view'
       view = Views.findOne
         _id: @params.id
       if !view?
@@ -13,5 +12,6 @@ Router.map ->
           type: "error"
         @redirect Router.routes['orgs'].path()
         return
+      @render 'view'
     data: ->
       @params.id
