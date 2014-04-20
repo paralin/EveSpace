@@ -12,9 +12,11 @@ shouldRenderMap = ->
 generateLabel = (sys)->
   sys.n+"\nMorpheus Deathbrew - Tengu"
 
+rsys = []
 addSys = (sys)->
   id = parseInt sys._id
   g.graph.addNode id, {label:generateLabel(sys)}
+  rsys.push sys._id
 
 addJump = (jump)->
   return if !_.contains(rsys, jump.s) || !_.contains(rsys, jump.t)
@@ -33,6 +35,7 @@ setupGraph = ->
       g.render() if shouldRenderMap()
     removed: (sys)->
       g.graph.delNode sys._id
+      rsys = _.without rsys, sys._id
       g.render() if shouldRenderMap()
   JumpDB.find().observe
     added: (jump)->
