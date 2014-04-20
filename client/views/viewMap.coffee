@@ -9,11 +9,12 @@ shouldRenderMap = ->
     lastRender = time
   !res
 
-rsys = []
+generateLabel = (sys)->
+  sys.n+"\nMorpheus Deathbrew - Tengu"
+
 addSys = (sys)->
   id = parseInt sys._id
-  g.graph.addNode id, {label: sys.n+"\nMorpheus Deathbrew\nTemplar Assassin"}
-  rsys.push id
+  g.graph.addNode id, {label:generateLabel(sys)}
 
 addJump = (jump)->
   return if !_.contains(rsys, jump.s) || !_.contains(rsys, jump.t)
@@ -25,12 +26,20 @@ setupGraph = ->
     added: (sys)->
       addSys sys
       g.render() if shouldRenderMap()
+    changed: (sys)->
+      node = g.graph.node(sys._id)
+      return if !node?
+      node.label = generateLabel sys
+      g.render() if shouldRenderMap()
     removed: (sys)->
       g.graph.delNode sys._id
       g.render() if shouldRenderMap()
   JumpDB.find().observe
     added: (jump)->
       addJump jump
+      g.render() if shouldRenderMap()
+    removed: (jump)->
+      g.graph.delEdge jump._id
       g.render() if shouldRenderMap()
 
 Meteor.startup setupGraph
