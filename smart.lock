@@ -15,7 +15,7 @@
       "font-awesome": {},
       "Bootstrap-Validator": {},
       "bootboxjs": {},
-      "dagre-d3": {}
+      "dagred3": {}
     },
     "packages": {
       "iron-router": {
@@ -68,10 +68,10 @@
         "tag": "v4.2.0",
         "commit": "2b7d18ad028d9e7b37238ecf2a8a7970735cebd1"
       },
-      "dagre-d3": {
+      "dagred3": {
         "git": "https://github.com/kidovate/meteor-dagre-d3.git",
-        "tag": "v0.1.5",
-        "commit": "326672b95363536d9631df76fe46f4dbb929c4f5"
+        "tag": "v0.1.91",
+        "commit": "3542636e65772b82c2d957e2265543266dfa4a50"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

@@ -2,6 +2,8 @@ Router.map ->
   @route 'view',
     controller: AuthRequired
     path: '/view/:id'
+    waitOn: ->
+      Meteor.subscribe "eveMap", "Delve"
     action: ->
       view = Views.findOne
         _id: @params.id

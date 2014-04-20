@@ -13,6 +13,6 @@
     "font-awesome": {},
     "Bootstrap-Validator": {},
     "bootboxjs": {},
-    "dagre-d3": {}
+    "dagred3": {}
   }
 }

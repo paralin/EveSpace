@@ -1,0 +1,3 @@
+[submodule "private/eve-json"]
+	path = private/eve-json
+	url = git@github.com:kidovate/eve-json.git
