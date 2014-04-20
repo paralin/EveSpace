@@ -1,5 +1,19 @@
 <template name="view">
-{{>viewBody this}}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1 id="type">{{theView.name}}</h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-10">
+    {{>viewBody this}}
+  </div>
+  <div class="col-lg-2">
+    Thing
+  </div>
+</div>
 </template>
 
 <template name="viewBody">

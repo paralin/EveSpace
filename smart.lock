@@ -70,8 +70,8 @@
       },
       "dagred3": {
         "git": "https://github.com/kidovate/meteor-dagre-d3.git",
-        "tag": "v0.1.91",
-        "commit": "3542636e65772b82c2d957e2265543266dfa4a50"
+        "tag": "v0.1.92",
+        "commit": "79f719cd1906dfc5ddcc650e96be2f576f7b4814"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
