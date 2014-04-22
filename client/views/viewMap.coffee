@@ -40,8 +40,9 @@ setupGraph = ->
     changed: (sys)->
       updateSys sys
     removed: (sys)->
-      g.delNode sys._id, true
-      rsys = _.without rsys, sys._id
+      id = parseInt sys._id
+      g.delNode id, true
+      rsys = _.without rsys, id
       global.mapDirty = true
   JumpDB.find().observe
     added: (jump)->
