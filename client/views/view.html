@@ -3,20 +3,21 @@
 .container{
   width: 100%
 }
+.col-lg-12{
+  padding-left: 0;
+  margin: 0;
+}
+.navbar {
+  margin-bottom: 0;
+}
 </style>
 <div class="row">
   <div class="col-lg-12">
-    <div class="page-header">
-      <h1 id="type">{{theView.name}}</h1>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-10">
+    <div class="viewMap">
     {{>viewBody this}}
-  </div>
-  <div class="col-lg-2">
-    Thing
+    </div>
+    <div class="sidebar">
+    </div>
   </div>
 </div>
 </template>
@@ -27,5 +28,6 @@
   </g>
   <g class="mapContainer">
   </g>
+  <text x="75px" y="50px" text-anchor="middle" fill="white" style="font-family:'Open Sans',sans-serif; font-size:24px;">Map: {{theView.name}}</text>
 </svg>
 </template>
