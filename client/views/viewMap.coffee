@@ -1,4 +1,6 @@
 global = @
+qnodes = []
+qedges = []
 
 @shouldRenderMap = ->
   route = Router.current()
@@ -10,6 +12,12 @@ Deps.autorun ->
   Session.get("500mstick")
   if global.mapDirty
     global.mapDirty = false
+    for node in qnodes
+      g.addNode.apply(g, node)
+    for edge in qedges
+      g.addEdge.apply(g, edge)
+    qnodes.length = 0
+    qedges.length = 0
     global.g.render() if global.shouldRenderMap()
 
 generateLabel = (sys)->
@@ -20,16 +28,14 @@ updateSys = (sys)->
   return if !node?
   node.label = generateLabel sys
   global.mapDirty = true
-rsys = []
+
 addSys = (sys)->
   id = parseInt sys._id
-  g.graph.addNode id, {label:generateLabel(sys)}, true
+  qnodes.push [id, {label:generateLabel(sys)}, true]
   global.mapDirty = true
-  rsys.push id
 
 addJump = (jump)->
-  return if !_.contains(rsys, jump.s) || !_.contains(rsys, jump.t)
-  g.graph.addEdge jump._id, jump.s, jump.t, {label: ""}, true
+  qedges.push [jump._id, jump.s, jump.t, {label:""}, true]
   global.mapDirty = true
 
 setupGraph = ->
