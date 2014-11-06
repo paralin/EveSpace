@@ -1,4 +1,4 @@
-@neow = Meteor.require "neow"
+@neow = Meteor.npmRequire "neow"
 idCache = {}
 
 #Automatically check everything every hour

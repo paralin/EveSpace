@@ -1,14 +1,15 @@
-Template.orgdetail.org = ->
-  Orgs.findOne()
-Template.orgdetail.orgViews = ->
-  org = Orgs.findOne()
-  return if !org?
-  Views.find
-    org: org._id
-Template.orgdetail.isOwner = ->
-  org = Orgs.findOne()
-  return false if !org?
-  isOrgOwner Meteor.userId(), org
+Template.orgdetail.helpers
+    "org": ->
+        Orgs.findOne()
+    "orgViews": ->
+        org = Orgs.findOne()
+        return if !org?
+        Views.find
+            org: org._id
+    "isOwner": ->
+        org = Orgs.findOne()
+        return false if !org?
+        isOrgOwner Meteor.userId(), org
 Template.orgdetail.events
   "click .oView": ->
     Router.go Router.routes['view'].path({id: @_id})

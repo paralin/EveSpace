@@ -1,9 +1,10 @@
-Template.api.keys = ->
-  APIAuths.find()
-Template.api.keyClass = ->
-  if @valid then null else "danger" #too much green
-Template.api.formatNextCheck = ->
-  moment(@gooduntil).fromNow()
+Template.api.helpers
+    keys: ->
+        APIAuths.find()
+    keyClass: ->
+        if @valid then null else "danger" #too much green
+    formatNextCheck: ->
+        moment(@gooduntil).fromNow()
 Template.api.events
   "click tr .fa-ban": ->
     if !confirmf "Are you sure you want to remove API key "+@keyid+"?"

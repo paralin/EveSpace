@@ -1,6 +1,6 @@
 FetchMetrics = new Meteor.Collection "alliancedbm"
 client = null
-Fiber = Meteor.require 'fibers'
+Fiber = Meteor.npmRequire 'fibers'
 #Every 2 hours
 fetchAlliances = ->
   alls = []

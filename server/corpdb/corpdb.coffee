@@ -1,5 +1,5 @@
 FetchMetrics = new Meteor.Collection "corpdbm"
-parseString = Meteor.require('xml2js').parseString
+parseString = Meteor.npmRequire('xml2js').parseString
 
 #Update once per every hour
 updateCorpDB = ->

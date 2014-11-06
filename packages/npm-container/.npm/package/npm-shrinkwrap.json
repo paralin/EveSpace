@@ -10,13 +10,10 @@
           "version": "1.0.1"
         },
         "q-io": {
-          "version": "1.11.0",
+          "version": "1.11.5",
           "dependencies": {
-            "q": {
-              "version": "0.9.7"
-            },
             "qs": {
-              "version": "0.1.0"
+              "version": "1.2.2"
             },
             "url2": {
               "version": "0.0.0"
@@ -41,19 +38,16 @@
           "version": "2.4.1"
         },
         "sax": {
-          "version": "0.6.0"
+          "version": "0.6.1"
         },
         "numeral": {
           "version": "1.5.3"
         },
         "xml2js": {
-          "version": "0.4.2",
+          "version": "0.4.4",
           "dependencies": {
-            "sax": {
-              "version": "0.5.8"
-            },
             "xmlbuilder": {
-              "version": "2.2.1",
+              "version": "2.4.4",
               "dependencies": {
                 "lodash-node": {
                   "version": "2.4.1"
@@ -71,7 +65,7 @@
           "version": "0.5.8"
         },
         "xmlbuilder": {
-          "version": "2.2.1",
+          "version": "2.4.4",
           "dependencies": {
             "lodash-node": {
               "version": "2.4.1"
