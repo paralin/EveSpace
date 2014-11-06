@@ -18,7 +18,7 @@ startCheckKeys = ->
                 delay: 3000
             Router.go Router.routes['api'].path()
 
-Template.nkey.handlers
+Template.nkey.helpers
     "checking": ->
         Session.get "checkingKey"
 

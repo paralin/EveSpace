@@ -58,11 +58,11 @@ Template.norg.rendered = ->
                         regexp: /^[\w\-\s]+$/
                         message: "Please use alphanumeric characters only."
 
-Template.norg.handlers
+Template.norg.helpers
     "groups": ->
         Session.get "tAccessGroups"
 
-Template.agSelector.handlers
+Template.agSelector.helpers
     "showSubmit": ->
         route = Router.current()
         return if !route?

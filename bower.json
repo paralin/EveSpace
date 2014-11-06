@@ -8,6 +8,7 @@
   "dependencies": {
     "pnotify": "~2.0.1",
     "sweetalert": "~0.3.1",
-    "bootbox": "~4.3.0"
+    "bootbox": "~4.3.0",
+    "dagre-d3": "paralin/dagre-d3#ce078d921ff0937bcc8751a5b86ecd7849597b72"
   }
 }
